@@ -6,8 +6,11 @@ class ContactsService{
       contacts: new ContactsRepo()
     }
   }
-  listContacts (){
+  listContacts(){
     return this.repo.contacts.listContacts()
+  }
+  getById(contactId){
+    return this.repo.contacts.getById(contactId)
   }
 }
 

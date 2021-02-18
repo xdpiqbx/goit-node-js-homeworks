@@ -24,6 +24,13 @@ class ContactsRepo {
     const listContacts = this.fetchContacts();
     return listContacts
   }
+
+  async getById (contactId) {
+    const listContacts = await this.fetchContacts();
+    const contact = listContacts.find(({ id }) => String(id) === contactId);
+    //привожу все id к строке String(id) поскольку в .json id это и строки и числа
+    return contact
+  }
 }
 
 module.exports = ContactsRepo
