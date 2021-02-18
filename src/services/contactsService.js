@@ -9,8 +9,13 @@ class ContactsService{
   listContacts(){
     return this.repo.contacts.listContacts()
   }
+
   getById(contactId){
     return this.repo.contacts.getById(contactId)
+  }
+
+  addContact(body){
+    return this.repo.contacts.addContact(body)
   }
 }
 

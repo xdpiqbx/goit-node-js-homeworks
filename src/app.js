@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3000
 
 app.use(cors())
 app.use(logger('dev'))
+app.use(express.json()) //чтоб интерпретировать значение req.body как объект JavaScript
 
 app.get('/', (req, res) => {
   res.send('Hello World!')

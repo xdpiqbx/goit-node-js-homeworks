@@ -4,6 +4,7 @@ const router = express.Router();
 
 router
   .get("/", contactsController.listContacts)
-  .get("/:contactId", contactsController.getById);
+  .get("/:contactId", contactsController.getById)
+  .post("/", contactsController.addContact);
 
 module.exports = router;

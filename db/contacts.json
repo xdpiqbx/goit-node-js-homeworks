@@ -58,5 +58,17 @@
     "name": "Mango",
     "email": "mango@gmail.com",
     "phone": "322-22-22"
+  },
+  {
+    "id": "647a99d2-c398-4f52-b67c-3dc8748fa6c2",
+    "name": "Billy Jango Boy",
+    "email": "some@jango.com",
+    "phone": "(234) 265 46 76"
+  },
+  {
+    "id": "0350e170-e269-4ed3-835c-09d3b12ed08d",
+    "name": "Johm Mc'Donald",
+    "email": "alolo@mail.com",
+    "phone": "(099) 678 46 76"
   }
 ]

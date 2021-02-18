@@ -15,7 +15,7 @@ const listContacts  = async (request, response, next) => {
   }
 }
 
-const getById  = async (request, response, next) => {
+const getById = async (request, response, next) => {
   try{
     const { contactId } = request.params
     const contact = await contactsService.getById(contactId)
@@ -38,6 +38,27 @@ const getById  = async (request, response, next) => {
   }
 }
 
+const addContact = async (request, response, next) => {
+  try{
+    //обязательно добавить app.use(express.json()) в app.js
+    //чтоб интерпретировать значение req.body как объект JavaScript
+
+    // Добавить валидацию!!!
+    // Если в body нет каких-то обязательных полей,
+    // возарщает json с ключом {"message": "missing required name field"} и статусом 400
+    const newContact = await contactsService.addContact(request.body)
+    response.status(201).json({
+      status: 'created',
+      code: 201,
+      data: {
+        ...newContact
+      }
+    })
+  }catch(error){
+    next(error)
+  }
+} 
+
 module.exports = {
-  listContacts, getById
+  listContacts, getById, addContact
 }
