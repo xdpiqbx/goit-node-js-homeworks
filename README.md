@@ -1,4 +1,4 @@
-# goit-node-js-homeworks
+# ДЗ 02 express
 
 ## (01-node-basics)
 

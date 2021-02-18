@@ -1,21 +1,30 @@
 {
-  "name": "01-node-basics",
+  "name": "goit-node-js-homeworks",
   "version": "1.0.0",
-  "description": "",
+  "description": "ДЗ 02 express",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xdpiqbx/goit-node-js-homeworks.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^2.0.7"
+  "bugs": {
+    "url": "https://github.com/xdpiqbx/goit-node-js-homeworks/issues"
   },
+  "homepage": "https://github.com/xdpiqbx/goit-node-js-homeworks#readme",
   "dependencies": {
-    "uuid": "^8.3.2",
-    "yargs": "^16.2.0"
+    "cors": "2.8.5",
+    "express": "4.17.1",
+    "morgan": "1.10.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.7"
   }
 }
