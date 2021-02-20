@@ -19,7 +19,6 @@ const getById = async (request, response, next) => {
   try{
     const { contactId } = request.params
     const contact = await contactsService.getById(contactId)
-    console.log(contact);
     if(contact){
       response.status(200).json({
         status: 'success',
@@ -57,8 +56,30 @@ const addContact = async (request, response, next) => {
   }catch(error){
     next(error)
   }
-} 
+}
+
+const removeContact = async (request, response, next) => {
+  try{
+    const { contactId } = request.params
+    const isDeleted = await contactsService.removeContact(contactId)
+    if(isDeleted){
+      response.status(200).json({
+        status: 'success',
+        code: 200,
+        message: "contact deleted",
+      })
+    } else {
+      response.status(404).json({
+        status: 'Error',
+        code: 404,
+        message: 'Not found'
+      })
+    }
+  }catch(error){
+    next(error)
+  }
+}
 
 module.exports = {
-  listContacts, getById, addContact
+  listContacts, getById, addContact, removeContact
 }

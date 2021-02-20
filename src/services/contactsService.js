@@ -6,6 +6,7 @@ class ContactsService{
       contacts: new ContactsRepo()
     }
   }
+
   listContacts(){
     return this.repo.contacts.listContacts()
   }
@@ -16,6 +17,10 @@ class ContactsService{
 
   addContact(body){
     return this.repo.contacts.addContact(body)
+  }
+
+  removeContact(contactId){
+    return this.repo.contacts.removeContact(contactId)
   }
 }
 

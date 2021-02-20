@@ -57,6 +57,17 @@ class ContactsRepo {
     await this.rewriteContacts(listContacts)
     return newContact
   }
+
+  async removeContact (contactId) {
+    const listContacts = await this.fetchContacts();
+    const isIdExist = listContacts.find(({id}) => String(id) === contactId) ? true : false
+    if(isIdExist){
+      const filteredContacts = listContacts.filter(({id}) => String(id) !== contactId)
+      await this.rewriteContacts(filteredContacts)
+    }
+    return isIdExist
+    // если равны то ничего не удалил
+  }
 }
 
 module.exports = ContactsRepo
