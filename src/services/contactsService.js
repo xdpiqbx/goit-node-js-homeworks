@@ -22,6 +22,11 @@ class ContactsService{
   removeContact(contactId){
     return this.repo.contacts.removeContact(contactId)
   }
+
+  updateContact(contactId, body){
+    return this.repo.contacts.updateContact(contactId, body)
+  }
+
 }
 
 module.exports = ContactsService

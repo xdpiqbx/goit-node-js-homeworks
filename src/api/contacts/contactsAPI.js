@@ -7,5 +7,6 @@ router
   .get("/:contactId", contactsController.getById)
   .post("/", contactsController.addContact)
   .delete("/:contactId", contactsController.removeContact)
+  .patch("/:contactId", contactsController.updateContact)
 
 module.exports = router;

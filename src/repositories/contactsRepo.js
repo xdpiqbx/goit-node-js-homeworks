@@ -21,7 +21,7 @@ class ContactsRepo {
 
   rewriteContacts = async (contacts) => {
     return new Promise((resolve, reject) => {
-      fs.writeFile(contactsPath, JSON.stringify(contacts), (err) => {
+      fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2), (err) => {
         if (err) {
           reject(err);
         }else{
@@ -67,6 +67,21 @@ class ContactsRepo {
     }
     return isIdExist
     // если равны то ничего не удалил
+  }
+
+  async updateContact (contactId, body) {
+    const listContacts = await this.fetchContacts();
+    const searchResultFromList = listContacts.find(({id}) => String(id) === contactId)
+    
+    if(!searchResultFromList){
+      return{updateStatus: false}
+    }else{
+      const updatedContact = {...searchResultFromList, ...body}
+      const filteredContacts = listContacts.filter(({id}) => String(id) !== contactId)
+      filteredContacts.push(updatedContact)
+      await this.rewriteContacts(filteredContacts)
+      return{ updated: updatedContact, updateStatus: true }
+    }
   }
 }
 
