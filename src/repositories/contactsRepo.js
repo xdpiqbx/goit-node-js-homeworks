@@ -2,10 +2,10 @@ const fs = require("fs");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 
-const contactsPath = path.join(__dirname, '..', '..', "db", "contacts.json");
+const contactsPath = path.join(__dirname, "..", "..", "db", "contacts.json");
 
 class ContactsRepo {
-  constructor(){}
+  constructor() {}
 
   fetchContacts = async () => {
     return new Promise((resolve, reject) => {
@@ -24,65 +24,70 @@ class ContactsRepo {
       fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2), (err) => {
         if (err) {
           reject(err);
-        }else{
-          resolve()
+        } else {
+          resolve();
         }
       });
     });
   };
-  
 
-  listContacts () {
-    // console.table(await this.fetchContacts());
+  listContacts() {
     const listContacts = this.fetchContacts();
-    return listContacts
+    return listContacts;
   }
 
-  async getById (contactId) {
+  async getById(contactId) {
     const listContacts = await this.fetchContacts();
     const contact = listContacts.find(({ id }) => String(id) === contactId);
     //привожу все id к строке String(id) поскольку в .json id это и строки и числа
-    return contact
+    return contact;
   }
 
-  async addContact (body) {
-    const id = uuidv4()
+  async addContact(body) {
+    const id = uuidv4();
     const newContact = {
       id,
-      ...body
-    }
+      ...body,
+    };
 
     const listContacts = await this.fetchContacts();
-    listContacts.push(newContact)
-    await this.rewriteContacts(listContacts)
-    return newContact
+    listContacts.push(newContact);
+    await this.rewriteContacts(listContacts);
+    return newContact;
   }
 
-  async removeContact (contactId) {
+  async removeContact(contactId) {
     const listContacts = await this.fetchContacts();
-    const isIdExist = listContacts.find(({id}) => String(id) === contactId) ? true : false
-    if(isIdExist){
-      const filteredContacts = listContacts.filter(({id}) => String(id) !== contactId)
-      await this.rewriteContacts(filteredContacts)
+    const isIdExist = listContacts.find(({ id }) => String(id) === contactId)
+      ? true
+      : false;
+    if (isIdExist) {
+      const filteredContacts = listContacts.filter(
+        ({ id }) => String(id) !== contactId
+      );
+      await this.rewriteContacts(filteredContacts);
     }
-    return isIdExist
-    // если равны то ничего не удалил
+    return isIdExist; // если равны то ничего не удалил
   }
 
-  async updateContact (contactId, body) {
+  async updateContact(contactId, body) {
     const listContacts = await this.fetchContacts();
-    const searchResultFromList = listContacts.find(({id}) => String(id) === contactId)
-    
-    if(!searchResultFromList){
-      return{updateStatus: false}
-    }else{
-      const updatedContact = {...searchResultFromList, ...body}
-      const filteredContacts = listContacts.filter(({id}) => String(id) !== contactId)
-      filteredContacts.push(updatedContact)
-      await this.rewriteContacts(filteredContacts)
-      return{ updated: updatedContact, updateStatus: true }
+    const searchResultFromList = listContacts.find(
+      ({ id }) => String(id) === contactId
+    );
+
+    if (!searchResultFromList) {
+      return { updateStatus: false };
+    } else {
+      const updatedContact = { ...searchResultFromList, ...body };
+      const filteredContacts = listContacts.filter(
+        ({ id }) => String(id) !== contactId
+      );
+      filteredContacts.push(updatedContact);
+      await this.rewriteContacts(filteredContacts);
+      return { updated: updatedContact, updateStatus: true };
     }
   }
 }
 
-module.exports = ContactsRepo
+module.exports = ContactsRepo;

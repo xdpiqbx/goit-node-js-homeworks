@@ -1,3 +1,2 @@
-const ContactsRepo = require('./contactsRepo')
-
-module.exports = ContactsRepo
+const ContactsRepo = require("./contactsRepo");
+module.exports = ContactsRepo;

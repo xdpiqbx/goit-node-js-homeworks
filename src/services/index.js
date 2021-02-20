@@ -1,2 +1,2 @@
-const ContactsService = require('./contactsService')
-module.exports = { ContactsService }
+const ContactsService = require("./contactsService");
+module.exports = { ContactsService };

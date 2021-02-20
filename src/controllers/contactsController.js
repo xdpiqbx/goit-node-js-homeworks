@@ -1,13 +1,14 @@
 const { ContactsService } = require("../services");
+const { HttpCode } = require("../helpers/constants");
 
 const contactsService = new ContactsService();
 
 const listContacts = async (request, response, next) => {
   try {
     const listContacts = await contactsService.listContacts();
-    response.status(200).json({
-      status: "success",
-      code: 200,
+    response.status(HttpCode.OK).json({
+      status: HttpCode.OK,
+      code: HttpCode.OK,
       data: { listContacts },
     });
   } catch (error) {
@@ -20,16 +21,17 @@ const getById = async (request, response, next) => {
     const { contactId } = request.params;
     const contact = await contactsService.getById(contactId);
     if (contact) {
-      response.status(200).json({
-        status: "success",
-        code: 200,
+      response.status(HttpCode.OK).json({
+        status: HttpCode.OK,
+        code: HttpCode.OK,
         data: { contact },
       });
     } else {
-      response.status(404).json({
-        status: "Error",
-        code: 404,
+      response.status(HttpCode.NOT_FOUND).json({
+        status: HttpCode.NOT_FOUND,
+        code: HttpCode.NOT_FOUND,
         message: "Not found",
+        data: "Not found",
       });
     }
   } catch (error) {
@@ -46,9 +48,9 @@ const addContact = async (request, response, next) => {
     // Если в body нет каких-то обязательных полей,
     // возарщает json с ключом {"message": "missing required name field"} и статусом 400
     const newContact = await contactsService.addContact(request.body);
-    response.status(201).json({
-      status: "created",
-      code: 201,
+    response.status(HttpCode.CREATED).json({
+      status: HttpCode.CREATED,
+      code: HttpCode.CREATED,
       data: {
         ...newContact,
       },
@@ -63,16 +65,17 @@ const removeContact = async (request, response, next) => {
     const { contactId } = request.params;
     const isDeleted = await contactsService.removeContact(contactId);
     if (isDeleted) {
-      response.status(200).json({
-        status: "success",
-        code: 200,
+      response.status(HttpCode.OK).json({
+        status: HttpCode.OK,
+        code: HttpCode.OK,
         message: "contact deleted",
       });
     } else {
-      response.status(404).json({
-        status: "Error",
-        code: 404,
+      response.status(HttpCode.NOT_FOUND).json({
+        status: HttpCode.NOT_FOUND,
+        code: HttpCode.NOT_FOUND,
         message: "Not found",
+        data: "Not found",
       });
     }
   } catch (error) {
@@ -83,19 +86,23 @@ const removeContact = async (request, response, next) => {
 const updateContact = async (request, response, next) => {
   try {
     const { contactId } = request.params;
-    const updatedContact = await contactsService.updateContact(contactId, request.body);
+    const updatedContact = await contactsService.updateContact(
+      contactId,
+      request.body
+    );
 
     if (updatedContact.updateStatus) {
-      response.status(200).json({
-        status: "success",
-        code: 200,
+      response.status(HttpCode.OK).json({
+        status: HttpCode.OK,
+        code: HttpCode.OK,
         data: updatedContact.updated,
       });
     } else {
-      response.status(404).json({
-        status: "Error",
-        code: 404,
+      response.status(HttpCode.NOT_FOUND).json({
+        status: HttpCode.NOT_FOUND,
+        code: HttpCode.NOT_FOUND,
         message: "Not found",
+        data: "Not found",
       });
     }
   } catch (error) {
